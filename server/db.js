@@ -1,21 +1,17 @@
-const pg = require('pg');
-const client = new pg.Client('postgres://localhost/pokemonworld');
+const pg = require("pg");
+const client = new pg.Client("postgres://localhost/PokemonWorld");
 
-    const fetchPokemon = async() => {
-        const SQL = `
+const fetchPokemon = async () => {
+  const SQL = `
         SELECT *
         FROM pokemons
-      `
-      const response = await client.query(SQL)
-      return response.rows
-    }
+      `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
 
-  
-  
-  
-
-  const seed = async() => {
-    const SQL = `
+const seed = async () => {
+  const SQL = `
     DROP TABLE IF EXISTS pokemons;
     DROP TABLE IF EXISTS trainers;
 
@@ -76,13 +72,15 @@ const client = new pg.Client('postgres://localhost/pokemonworld');
       VALUES (
         'Snorlax',
         null
-      );
+        );
+        INSERT INTO pokemons(name) VALUES ('NewPokemon');
+        INSERT INTO pokemons(name) VALUES ('NewerPokemon');
   `;
-  await client.query(SQL)
-  }
+  await client.query(SQL);
+};
 
-  module.exports = {
-    client,
-    fetchPokemon,
-    seed
-  }
+module.exports = {
+  client,
+  fetchPokemon,
+  seed,
+};
